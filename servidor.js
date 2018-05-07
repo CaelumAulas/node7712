@@ -1,8 +1,10 @@
-var http = require('http')
+const express = require('express')
+// hoisting
+const servidor = express()
 
 // funcoes de callback
-var servidor = http.createServer(function(pedido, resposta){
-    resposta.end("oi")
+servidor.get("/", function(request, response){
+    response.send("<h1>Casa do Codigo gfeliz</h1>")
 })
 
 console.log("Rodou o servidor")
