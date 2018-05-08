@@ -5,7 +5,7 @@ function LivrosDAO(conexao){
     this.conexao = conexao
 }
 
-// método x todo mundo consegue alterar
+// método estático todo mundo consegue alterar
 LivrosDAO.prototype.lista = function(callbackSucesso, callbackDeuRuim){
     console.log("X dentro do DAO", this._X)
     
