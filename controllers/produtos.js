@@ -7,7 +7,7 @@ function listagemProdutos(request, response){
             console.error("Deu ruim")
         } else {
             console.log("Terminou a query")
-            response.render('produtos/lista.ejs', {
+            response.render('produtos/lista', {
                 msgErro: "",
                 livros: listaDoBanco
             }) 
