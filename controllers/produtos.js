@@ -17,11 +17,27 @@ const listagemProdutos = (request, response) => {
     conexao.end()
 }
 
+const queryString = require('query-string')
+
 function cadastroProdutos(request, response){
-    response.send("Cadastrou de mentira")
-    // livrosDAO.cadastra(livro, function(){
-    //     response.render('deu bom')
-    // })
+    let livroString = ""
+
+    request.on('data', tecoDoLivro => {
+        livroString += tecoDoLivro
+        console.log("Teco: "+ livroString)
+    })
+
+    request.on('end', () => {
+        const livro = queryString.parse(livroString)
+
+        const conexao = Conexao()
+        const livrosDAO = new LivrosDAO(conexao)
+        livrosDAO.cadastra(
+            livro,
+            () => response.redirect("/produtos"),
+            erro => response.render('erros/500', {erro})
+        ) 
+    }) 
 }
 
 function form(req, res){
