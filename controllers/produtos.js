@@ -1,22 +1,26 @@
-const pool = require('../db/pool')
+// Data Access Object
+const livrosDAO = require('../db/livrosDAO')
 
-function listagemProdutos(request, response){
-        
-    pool.query("SELECT * FROM livros", function(erro, listaDoBanco){
-        if(erro){
-            console.error("Deu ruim")
-        } else {
+function listagemProdutos(request, response){   
+    livrosDAO.lista(
+        function sucesso(livros){
             console.log("Terminou a query")
             response.render('produtos/lista', {
                 msgErro: "",
-                livros: listaDoBanco
-            }) 
+                livros: livros
+            })
+        },
+        function erro(erro){
+            console.error("Deu ruim\n", erro)
+            response.render('erros/500', {erro})
         }
-    })        
+    )        
 }
 
 function cadastroProdutos(request, response){
-    console.log("Cadastro")    
+    livrosDAO.cadastra(livro, function(){
+        response.render('deu bom')
+    })
 }
 
 module.exports = {
