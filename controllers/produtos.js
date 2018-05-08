@@ -6,10 +6,6 @@ const listagemProdutos = (request, response) => {
     const conexao = Conexao()
     const livrosDAO = new LivrosDAO(conexao)
 
-    console.log("X fora do DAO", livrosDAO.X)
-
-    LivrosDAO.prototype = {}
-
     livrosDAO.lista(
         livros => response.render('produtos/lista', {
             msgErro: "",
@@ -21,21 +17,21 @@ const listagemProdutos = (request, response) => {
     conexao.end()
 }
 
-const deletaProduto = (request, response) => {
-        const livrosDAO = LivrosDAO()
-        const idProduto = 2
-        livrosDAO.busca(idProduto, produto => {
-            livrosDAO.deletaProduto(produto)
-        })
+function cadastroProdutos(request, response){
+    response.send("Cadastrou de mentira")
+    // livrosDAO.cadastra(livro, function(){
+    //     response.render('deu bom')
+    // })
 }
 
-function cadastroProdutos(request, response){
-    livrosDAO.cadastra(livro, function(){
-        response.render('deu bom')
+function form(req, res){
+    res.render('produtos/form', {
+        validationErrors: []
     })
 }
 
 module.exports = {
     listagem: listagemProdutos, 
-    cadastro: cadastroProdutos
+    cadastro: cadastroProdutos,
+    form
 }
