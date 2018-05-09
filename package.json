@@ -3,15 +3,18 @@
     "ejs": "^2.6.1",
     "express": "^4.16.3",
     "express-validator": "^5.2.0",
+    "mocha": "^5.1.1",
     "mysql": "^2.15.0",
-    "query-string": "^6.1.0"
+    "query-string": "^6.1.0",
+    "supertest": "^3.0.0"
   },
   "devDependencies": {
     "nodemon": "^1.17.4",
     "gulp": "^4.0.0"
   },
   "scripts": {
-    "start": "node index.js",
+    "start": "PORT=4200 node index.js",
+    "test": "mocha --recursive test cdc-tes",
     "start-dev": "nodemon index.js"
   },
   "name": "node7712",

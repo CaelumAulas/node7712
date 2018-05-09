@@ -18,7 +18,7 @@ require('./routes/home')(servidor)
 
 servidor.use((req, res, next) => {
     console.log("o que está acontecendo")
-    res.render('erros/500', {erro: "404 Not Found"})
+    res.status(404).render('erros/500', {erro: "404 Not Found"})
 })
 
 servidor.use((erro, req, res, next) => {
