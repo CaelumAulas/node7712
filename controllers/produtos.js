@@ -1,5 +1,3 @@
-
-
 const listagemProdutos = (request, response, next) => {   
     request.livrosDAO.lista(
         livros => response.format({
@@ -24,19 +22,16 @@ function cadastroProdutos(request, response, next){
         .assert('preco', 'Preco precisa ser numero')
         .isNumeric()
 
-    request.asyncValidationErrors()
-        .then(() => request.livrosDAO.cadastra(
-            livro 
-            ,() => response.redirect("/produtos")
-            ,next
-        ))
+    const promiseValidacao = request.asyncValidationErrors()
+
+    promiseValidacao
         .catch(validationErrors => response.render('produtos/form', {validationErrors}))
 
-    // promiseValidacao
-    //     .catch(validationErrors => response.render('produtos/form', {validationErrors}))
-    //     .then(() => request.livrosDAO.cadastra(livro))
-    //     .then(() => response.redirect("/produtos"))
-    //     .catch(next)
+    promiseValidacao
+        .then(() => request.livrosDAO.cadastra(livro).catch(next))
+        .then(() => response.redirect("/produtos"))
+        .catch(() => {})
+
 }
 
 function form(req, res){
@@ -69,3 +64,16 @@ module.exports = {
 //         next()
 //     })
 // }
+
+
+    // request.asyncValidationErrors()
+    //     .then(() => request.livrosDAO.cadastra(
+    //         livro 
+    //         ,() => {
+    //             avisaUmServico(() => {
+    //                 response.redirect("/produtos")
+    //             })
+    //         }
+    //         ,() => errado()
+    //     ))
+    //     .catch(validationErrors => response.render('produtos/form', {validationErrors}))
