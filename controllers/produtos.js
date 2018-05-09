@@ -17,27 +17,34 @@ const listagemProdutos = (request, response) => {
     conexao.end()
 }
 
-const queryString = require('query-string')
+// const queryString = require('query-string')
+
+// function criaBody(request, response, next){
+//     let stringBody = ""
+
+//     request.on('data', tecoDoLivro => {
+//         stringBody += tecoDoLivro
+//     })
+
+//     request.on('end', () => {
+//         request.body = queryString.parse(stringBody)
+//         console.log("Cria BODY", request.body)
+//         next()
+//     })
+// }
 
 function cadastroProdutos(request, response){
-    let livroString = ""
+    console.log("Chegou no cadastro")
 
-    request.on('data', tecoDoLivro => {
-        livroString += tecoDoLivro
-        console.log("Teco: "+ livroString)
-    })
+    const livro = request.body
 
-    request.on('end', () => {
-        const livro = queryString.parse(livroString)
-
-        const conexao = Conexao()
-        const livrosDAO = new LivrosDAO(conexao)
-        livrosDAO.cadastra(
-            livro,
-            () => response.redirect("/produtos"),
-            erro => response.render('erros/500', {erro})
-        ) 
-    }) 
+    const conexao = Conexao()
+    const livrosDAO = new LivrosDAO(conexao)
+    livrosDAO.cadastra(
+        livro,
+        () => response.redirect("/produtos"),
+        erro => response.render('erros/500', {erro})
+    )
 }
 
 function form(req, res){
@@ -47,7 +54,8 @@ function form(req, res){
 }
 
 module.exports = {
-    listagem: listagemProdutos, 
+    listagem: listagemProdutos,
+    // criaBody,
     cadastro: cadastroProdutos,
     form
 }
