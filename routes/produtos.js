@@ -16,6 +16,10 @@ function cadastraRotas(servidor){
         .get("/produtos", ProdutosController.listagem)
         .get("/produtos/form", ProdutosController.form)
         .post("/produtos", ProdutosController.cadastro)
+        .post("/promocoes", (request, response) => {
+            servidor.get('coiso').emit('novaPromocao', request.body)
+            response.redirect("/produtos")
+        })
         .use((request, resp, next) => {
             request.conexao.end()
             next()

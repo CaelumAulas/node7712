@@ -29,7 +29,7 @@
                             <td><p><%= livro.descricao %></p></td>
                             <td>
                                 <form action="/promocoes" method="post" style="margin: 0" class="form-promocao">
-                                    <input type="hidden" value="<%= livro.titulo %>">
+                                    <input type="hidden" name="titulo" value="<%= livro.titulo %>">
                                     <div class="input-group">
                                         <input class="form-control"type="text" name="msg">
                                         <div class="input-group-btn">
@@ -47,23 +47,23 @@
         </div>
     </div>
 
-    <script>
-        var formsPromocao = document.querySelectorAll(".form-promocao")
-        formsPromocao.forEach(function(form){
-            form.addEventListener("submit", function(event){
-                event.preventDefault()
-                fetch("/promocoes", {
-                    method: "POST"
-                    ,body: new FormData(form)
-                })
-                .then(function(result){
-                    console.log("Promoção enviada pro servidor")
-                })
-                .catch(function(error){
-                    console.error(error)
-                })
-            })
-        })
-    </script>
+    // <script>
+    //     var formsPromocao = document.querySelectorAll(".form-promocao")
+    //     formsPromocao.forEach(function(form){
+    //         form.addEventListener("submit", function(event){
+    //             event.preventDefault()
+    //             fetch("/promocoes", {
+    //                 method: "POST"
+    //                 ,body: new FormData(form)
+    //             })
+    //             .then(function(result){
+    //                 console.log("Promoção enviada pro servidor")
+    //             })
+    //             .catch(function(error){
+    //                 console.error(error)
+    //             })
+    //         })
+    //     })
+    // </script>
 
 <% include ../includes/footer.ejs %>
