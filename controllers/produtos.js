@@ -9,9 +9,6 @@ const listagemProdutos = (request, response, next) => {
             })
             ,json: () => response.send(livros)
         })
-        
-        
-
         ,next
     )
 }
