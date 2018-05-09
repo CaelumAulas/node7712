@@ -15,11 +15,28 @@ const listagemProdutos = (request, response, next) => {
 
 function cadastroProdutos(request, response, next){
     const livro = request.body
-    request.livrosDAO.cadastra(
-        livro
-        ,() => response.redirect("/produtos")
-        ,next
-    )
+    
+    request
+        .assert('titulo', 'Titulo eh obrigatório')
+        .notEmpty()
+
+    request
+        .assert('preco', 'Preco precisa ser numero')
+        .isNumeric()
+
+    request.asyncValidationErrors()
+        .then(() => request.livrosDAO.cadastra(
+            livro 
+            ,() => response.redirect("/produtos")
+            ,next
+        ))
+        .catch(validationErrors => response.render('produtos/form', {validationErrors}))
+
+    // promiseValidacao
+    //     .catch(validationErrors => response.render('produtos/form', {validationErrors}))
+    //     .then(() => request.livrosDAO.cadastra(livro))
+    //     .then(() => response.redirect("/produtos"))
+    //     .catch(next)
 }
 
 function form(req, res){

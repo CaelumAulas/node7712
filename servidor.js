@@ -10,6 +10,9 @@ servidor.use(express.static('./public'))
 servidor.use(express.urlencoded())
 servidor.use(express.json())
 
+const expressValidator = require('express-validator')
+servidor.use(expressValidator())
+
 require('./routes/produtos')(servidor)
 require('./routes/home')(servidor)
 
